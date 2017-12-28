@@ -193,7 +193,6 @@ func (t *Task) Save() (bool, error) {
 		}
 		t.SetID(id)
 	} else {
-		println("Got task from Database!", t.Task())
 		_, err := storage.DbHandler.Exec(updateSQLQuery, t.Task(), t.Priority(), t.ID())
 		if err != nil {
 			return falseAndError("Can not update task:" + err.Error())
