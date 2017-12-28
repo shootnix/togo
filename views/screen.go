@@ -27,8 +27,19 @@ func (s *Screen) RenderList(list []*models.Task) {
 	lineBreak()
 	for _, t := range list {
 		//fmt.Println(t)
-		fmt.Println("\t", t.ID(), ":", t.Task())
+		//fmt.Println("\t", t.ID(), ":", t.Task())
+		fmt.Printf("\t%03d : %s\n", t.ID(), t.Task())
 	}
+	lineBreak()
+}
+
+func (s *Screen) RenderHelp() {
+	lineBreak()
+	fmt.Println("\t", "-add  -- Add task")
+	fmt.Println("\t", "-d    -- Delete task")
+	fmt.Println("\t", "-r    -- Mark task as resolved")
+	fmt.Println("\t", "-up   -- Raise priority of the task")
+	fmt.Println("\t", "-down -- Redure priority of the task")
 	lineBreak()
 }
 

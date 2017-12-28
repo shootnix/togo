@@ -168,6 +168,9 @@ func main() {
 			println(err.Error())
 			break
 		}
+	case "help":
+		screen.RenderHelp()
+		os.Exit(0)
 	}
 
 	screen.RenderList(models.ListTasks())
