@@ -26,8 +26,6 @@ func (s *Screen) Render(t *models.Task) {
 func (s *Screen) RenderList(list []*models.Task) {
 	lineBreak()
 	for _, t := range list {
-		//fmt.Println(t)
-		//fmt.Println("\t", t.ID(), ":", t.Task())
 		fmt.Printf("\t%03d : %s\n", t.ID(), t.Task())
 	}
 	lineBreak()
