@@ -182,6 +182,7 @@ func (t *Task) Save() (bool, error) {
 		if err != nil {
 			return false, errors.New("Cannot prepare statement: " + err.Error())
 		}
+		defer stm.Close()
 		res, err := stm.Exec(t.Task())
 		if err != nil {
 			return false, errors.New("Cannot execute statement: " + err.Error())
@@ -215,6 +216,7 @@ func ListTasks() []*Task {
 	if err != nil {
 		panic(err)
 	}
+	defer rows.Close()
 	var id int64
 	var task sql.NullString
 	for rows.Next() {
