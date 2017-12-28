@@ -5,7 +5,7 @@ import (
 	"errors"
 )
 
-// Task ...
+// Task object
 type Task struct {
 	id       int64
 	task     sql.NullString
@@ -14,20 +14,20 @@ type Task struct {
 	priority int64
 }
 
-// NewTask ...
+// NewTask : task object constructor
 func NewTask() (t *Task) {
 	t = &Task{}
 
 	return
 }
 
-// Task ...
+// Task : get task
 func (t *Task) Task() string {
 
 	return t.task.String
 }
 
-// SetTask ...
+// SetTask : set task
 func (t *Task) SetTask(tstring string) {
 	valid := tstring != ""
 	t.task = sql.NullString{
@@ -36,27 +36,27 @@ func (t *Task) SetTask(tstring string) {
 	}
 }
 
-// ID ...
+// ID : get task id
 func (t *Task) ID() int64 {
 	return t.id
 }
 
-// SetID ...
+// SetID : set task id
 func (t *Task) SetID(uid int64) {
 	t.id = uid
 }
 
-// Priority ...
+// Priority : get priority value
 func (t *Task) Priority() int64 {
 	return t.priority
 }
 
-// SetPriority ...
+// SetPriority : set priority value
 func (t *Task) SetPriority(priority int64) {
 	t.priority = priority
 }
 
-// GetTask ...
+// GetTask : load task object from database
 func GetTask(taskID int64) (*Task, error) {
 	//println("sorage workdir =", storage.WorkDir)
 	t := &Task{}
@@ -79,7 +79,7 @@ func GetTask(taskID int64) (*Task, error) {
 	return t, nil
 }
 
-// Resolve ...
+// Resolve : mark task as a resolved
 func (t *Task) Resolve() (bool, error) {
 	updateSQLQuery := `
 		UPDATE tasks
@@ -94,7 +94,7 @@ func (t *Task) Resolve() (bool, error) {
 	return true, nil
 }
 
-// Delete ...
+// Delete : delete task
 func (t *Task) Delete() (bool, error) {
 	deleteSQLQuery := `
 		DELETE FROM tasks
@@ -108,7 +108,7 @@ func (t *Task) Delete() (bool, error) {
 	return true, nil
 }
 
-// Mark ...
+// Mark : mark task (add some string in the beginning of task)
 func (t *Task) Mark(mark string) (bool, error) {
 	t.SetTask(mark + " " + t.Task())
 	_, err := t.Save()
@@ -119,13 +119,13 @@ func (t *Task) Mark(mark string) (bool, error) {
 	return true, nil
 }
 
-// UnMark ...
+// UnMark : delete some string in the beginning of task
 func (t *Task) UnMark(mark string) (bool, error) {
 	// TODO: ...
 	return true, nil
 }
 
-// Up ...
+// Up : raise priority of the task (increase value by 1)
 func (t *Task) Up() (bool, error) {
 	t.SetPriority(t.Priority() + 1)
 	_, err := t.Save()
@@ -136,7 +136,7 @@ func (t *Task) Up() (bool, error) {
 	return true, nil
 }
 
-// Down ...
+// Down : reduce priority of the task (by 1)
 func (t *Task) Down() (bool, error) {
 	t.SetPriority(t.Priority() - 1)
 	_, err := t.Save()
@@ -147,7 +147,7 @@ func (t *Task) Down() (bool, error) {
 	return true, nil
 }
 
-// Save ...
+// Save : save task
 func (t *Task) Save() (bool, error) {
 	insertSQLQuery := `
 		INSERT INTO tasks (task)
@@ -202,7 +202,7 @@ func (t *Task) Save() (bool, error) {
 	return true, nil
 }
 
-// ListTasks ...
+// ListTasks : get list of resolved task ordered by priority
 func ListTasks() []*Task {
 	var list []*Task
 	sqlQuery := `

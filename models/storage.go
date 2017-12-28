@@ -7,10 +7,10 @@ import (
 	"os/user"
 	"path"
 
-	_ "github.com/mattn/go-sqlite3" // vvvv
+	_ "github.com/mattn/go-sqlite3" // sqlite3 interface
 )
 
-// Storage ...
+// Storage object
 type Storage struct {
 	HomeDir    string
 	WorkDir    string
@@ -20,7 +20,7 @@ type Storage struct {
 
 var storage *Storage
 
-// InitStorage ...
+// InitStorage : init storage object, working dir and database
 func InitStorage() {
 	usr, err := user.Current()
 	if err != nil {

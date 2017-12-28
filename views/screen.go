@@ -5,24 +5,17 @@ import (
 	"g0/models"
 )
 
-// Screen ...
+// Screen object
 type Screen struct {
 	device string
 }
 
-// NewScreen ...
+// NewScreen : screen onbject constructor
 func NewScreen() *Screen {
 	return &Screen{device: "Screen"}
 }
 
-// Render ...
-func (s *Screen) Render(t *models.Task) {
-	lineBreak()
-	fmt.Println("\t", t.ID(), ":", t.Task())
-	lineBreak()
-}
-
-// RenderList ...
+// RenderList : render list of tasks
 func (s *Screen) RenderList(list []*models.Task) {
 	lineBreak()
 	for _, t := range list {
@@ -31,6 +24,7 @@ func (s *Screen) RenderList(list []*models.Task) {
 	lineBreak()
 }
 
+// RenderHelp : render documentation
 func (s *Screen) RenderHelp() {
 	lineBreak()
 	fmt.Println("\t", "-add  -- Add task")
