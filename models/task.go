@@ -168,8 +168,8 @@ func (t *Task) Save() (bool, error) {
 	`
 
 	if t.ID() == 0 {
-		// this is new task
-		// check is exists
+		// new task
+		// check
 		var id int64
 		err := storage.DbHandler.QueryRow(checkSQLQuery, t.Task()).Scan(&id)
 		//fmt.Println("id =", id)
@@ -193,6 +193,7 @@ func (t *Task) Save() (bool, error) {
 		}
 		t.SetID(id)
 	} else {
+		// task from db
 		_, err := storage.DbHandler.Exec(updateSQLQuery, t.Task(), t.Priority(), t.ID())
 		if err != nil {
 			return falseAndError("Can not update task:" + err.Error())
